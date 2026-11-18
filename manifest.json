@@ -1,0 +1,14 @@
+{
+  "name": "BOXXE — Dal Quartiere al Ring",
+  "short_name": "BOXXE",
+  "description": "Simulatore di pugilato per smartphone: storia, carriera, match rapido e allenamento.",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#0b0b10",
+  "lang": "it",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
