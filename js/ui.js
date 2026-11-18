@@ -219,6 +219,7 @@ const UI = {
     list.append(
       slider('Effetti sonori', 'sfx'),
       slider('Musica', 'music'),
+      seg('Visuale del match', ['fp', 'side'], ['Prima persona', 'Laterale'], 'view'),
       seg('Vibrazione', [true, false], ['Sì', 'No'], 'vibration'),
       seg('Durata round (reale)', [60, 90, 120, 180], ['1:00', '1:30', '2:00', '3:00'], 'roundLen'),
       seg('Difficoltà predefinita', [0, 1, 2, 3], AI_DIFF.map(d => d.name), 'difficulty'),

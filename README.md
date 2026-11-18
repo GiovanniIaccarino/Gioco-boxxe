@@ -3,7 +3,7 @@
 Simulatore di pugilato per smartphone, travestito da gioco semplice. HTML5 + JavaScript puro, nessuna dipendenza: grafica, animazioni, musica ed effetti sonori sono generati dal codice.
 
 ## Come giocare
-Apri `index.html` da un server web (anche `python3 -m http.server`) e visitalo dal browser dello smartphone. Si può aggiungere alla schermata Home (PWA). Funziona in verticale e in orizzontale; su desktop si gioca anche da tastiera.
+Apri `index.html` da un server web (anche `python3 -m http.server`) e visitalo dal browser dello smartphone. Si può aggiungere alla schermata Home (PWA). I match si giocano **in prima persona** (vedi l'avversario di fronte e i tuoi guantoni in primo piano); la visuale laterale si attiva da Impostazioni o dal menu di pausa. Funziona in verticale e in orizzontale; su desktop si gioca anche da tastiera.
 
 **Comandi:** levetta ← → per muoversi, ↓ + colpo per colpire al corpo · JAB, DIRETTO, GANCIO, MONTANTE · GUARDIA (tieni premuto; con ↓ para al corpo) · SCHIVA (centro = schivata, ↓ = abbassati, ← = passo indietro) · GUARDIA + → da vicino = clinch.
 Tastiera: A/D, S, J/K/U/I, Spazio, L, Esc.
@@ -18,4 +18,4 @@ Tastiera: A/D, S, J/K/U/I, Spazio, L, Esc.
 Fiato e fatica che si accumula, danni separati a testa e corpo, stordimento e mento, tagli e gonfiori, guardia alta/bassa che può essere sfondata, schivate con finestra di contrattacco, contropiedi, portata dei colpi, corde, clinch, guardia mancina, 3 giudici con criteri diversi, arbitro che ferma l'incontro, conteggio e rialzata, IA che usa le stesse regole del giocatore e impara i tuoi colpi preferiti.
 
 ## Struttura
-`js/sim.js` simulazione pura · `js/fighter.js` pugile e animazioni · `js/ai.js` IA · `js/fight.js` scena del match · `js/render.js` grafica procedurale · `js/story.js` storia · `js/career.js` carriera · `js/minigames.js` allenamenti · `js/ui.js` menu.
+`js/sim.js` simulazione pura · `js/fighter.js` pugile e animazioni · `js/ai.js` IA · `js/fight.js` scena del match · `js/fpview.js` visuale in prima persona · `js/render.js` grafica procedurale · `js/story.js` storia · `js/career.js` carriera · `js/minigames.js` allenamenti · `js/ui.js` menu.

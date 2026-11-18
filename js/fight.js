@@ -23,6 +23,7 @@ class FightScene {
     this.ref = { x: 0, pose: Render.defaultPose(), anim: 0, vx: 0 };
     this.hpGhost = { a: 100, b: 100 };
     this.coachName = cfg.coach || 'Il tuo angolo';
+    this.fp = (cfg.view || Save.settings.view) === 'side' ? null : new FPView(this);
     this.buildDom();
     this.showBig(cfg.title || (cfg.street ? 'RISSA IN STRADA' : `${this.sim.a.name.toUpperCase()} vs ${this.sim.b.name.toUpperCase()}`), 'intro', 2.2,
       cfg.street ? 'Nessuna regola. Solo pugni.' : (cfg.spar ? 'Sparring con caschetto' : `${this.sim.cfg.rounds} round • ${VENUES[venue] ? VENUES[venue].name : ''}`));
@@ -105,6 +106,11 @@ class FightScene {
       U.el('h2', null, 'PAUSA'),
       UI.btn('Riprendi', close, 'primary'),
       UI.btn('Comandi', () => { UI.controlsHelp(this.overlay, () => this.pauseReopen()); }),
+      UI.btn(this.fp ? 'Visuale: prima persona' : 'Visuale: laterale', () => {
+        Save.settings.view = this.fp ? 'side' : 'fp'; Save.write();
+        this.fp = this.fp ? null : new FPView(this);
+        this.pauseReopen();
+      }),
       this.cfg.mode === 'story' && !this.cfg.allowQuit ? null : UI.btn(this.cfg.mode === 'career' ? 'Ritirati (sconfitta)' : 'Abbandona', () => {
         close();
         if (this.cfg.mode === 'career' || this.cfg.mode === 'story') this.sim.finish(this.sim.b, 'RTD', 'Ritiro all\'angolo');
@@ -155,6 +161,7 @@ class FightScene {
     this.updateRef(dt);
     this.updateCam(dt);
     this.updateParts(dt);
+    if (this.fp) this.fp.update(dt);
     this.updateHud(dt);
     if (this.breakDelay != null) { this.breakDelay -= rdt; if (this.breakDelay <= 0) { this.breakDelay = null; this.showBreak(); } }
     if (this.endDelay != null) { this.endDelay -= rdt; if (this.endDelay <= 0) { this.endDelay = null; this.showResults(); } }
@@ -178,6 +185,7 @@ class FightScene {
   handleEvents() {
     const s = this.sim;
     for (const e of s.events) {
+      if (this.fp) this.fp.onEvent(e);
       const playerAtt = e.att === s.a, playerDef = e.def === s.a;
       switch (e.type) {
         case 'hit': {
@@ -331,6 +339,11 @@ class FightScene {
 
   render(ctx, w, h) {
     const L = this.L = this.layout(w, h);
+    if (this.fp) {
+      this.fp.render(ctx, w, h);
+      if (this.flashT > 0) { ctx.fillStyle = `rgba(255,255,255,${this.flashT * 2})`; ctx.fillRect(0, 0, w, h); }
+      return;
+    }
     const S = L.S * this.cam.zoom, gy = L.gy;
     const s = this.sim;
     ctx.save();
